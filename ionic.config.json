@@ -1,7 +1,9 @@
 {
   "name": "notifications",
   "integrations": {
-    "capacitor": {}
+    "capacitor": {},
+    "cordova": {}
   },
-  "type": "angular"
+  "type": "angular",
+  "proxy": "https://cat-fact.herokuapp.com/"
 }

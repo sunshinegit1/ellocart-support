@@ -1,0 +1,25 @@
+ion-label{
+    text-align: center;
+}
+.name ion-label{
+    text-align: left;
+}
+ion-card-content{
+    padding: 0px;
+}
+ion-card-title{
+    font-size: 16px;
+}
+ion-img{
+    width: 64px;
+    display: block;
+    margin: auto;
+    margin-top: 10px;
+}
+ion-toolbar {
+    --background: #752dac;
+    --color: white;
+}
+.transacList p{
+    font-weight: bold;
+}

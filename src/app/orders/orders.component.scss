@@ -1,0 +1,17 @@
+ion-toolbar {
+    --background: #752dac;
+    --color: white;
+}
+.line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+.delivery ion-button{
+    
+    ion-button{
+        --background: #752dac;
+        width: 50%;
+    }
+    
+}
