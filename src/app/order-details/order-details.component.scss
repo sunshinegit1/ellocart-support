@@ -1,0 +1,26 @@
+ion-toolbar {
+    --background: #752dac;
+    --color: white;
+}
+.line{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px;
+    h3{
+        font-size: 16px;
+        margin: 0px;
+    }
+}
+.title{
+    font-size: 20px;
+    margin: 5px;
+}
+ion-card{
+    margin: 3px 10px 10px;
+}
+.product{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

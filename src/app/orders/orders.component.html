@@ -7,13 +7,14 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-list>
+  <div *ngFor="let o of orders">
+    <ion-card>
+      <ion-list>
       <ion-item>
         <ion-icon name="restaurant-outline" slot="start"></ion-icon>
         <ion-label class="ion-text-wrap">
           <h2>Restaurant Name</h2>
-          <p>Location</p>
+          <p>{{o.address}}</p>
         </ion-label>
       </ion-item>
     </ion-list>
@@ -22,11 +23,11 @@
       <h3>Customer Ph</h3>
       <div class="line">
         <h3>Ordered Id:</h3>
-        <h3>0</h3>
+        <h3>{{o.o_total}}</h3>
       </div>
       <div class="line">
         <h3>1 Items</h3>
-        <h3>status</h3>
+        <h3>{{o.o_status}}</h3>
       </div>
       <div class="line">
         <h3>Scheduled: time</h3>
@@ -34,7 +35,7 @@
       </div>
       <h3>Delivery: time</h3>
       <div class="delivery">
-        <ion-card-title>Delivery Boy Info</ion-card-title>
+        <h2 class="title">Delivery Boy Info</h2>
         <ion-list lines="none">
           <ion-item>
             <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
@@ -46,8 +47,13 @@
           </ion-item>
         </ion-list>
       </div>
+      <div class="buttons">
+        <ion-button class="accept">Accept</ion-button>
+        <ion-button class="decline">Decline</ion-button>
+      </div>
     </ion-card-content>
   </ion-card>
+</div>
 
 
 </ion-content>

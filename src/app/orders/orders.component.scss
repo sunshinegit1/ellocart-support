@@ -7,11 +7,35 @@ ion-toolbar {
     flex-direction: row;
     justify-content: space-between;
 }
-.delivery ion-button{
-    
+.delivery{
+    margin-top: 15px;
     ion-button{
         --background: #752dac;
-        width: 50%;
+        width: 35%;
     }
-    
+    ion-item::part(native){
+        padding-left: 0px;
+    }
+    ion-img{
+        margin-inline-end: 10px;
+    }
+    .title{
+        font-weight: 500;
+        font-size: 20px;
+    }
+   
+}
+.buttons{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    border-top: 1px solid #000;
+    padding-top: 15px;
+    .accept{
+        --background: #0ec223;
+    }
+    .decline{
+        --background: #e62424;
+        width: 35%;
+    }
 }
