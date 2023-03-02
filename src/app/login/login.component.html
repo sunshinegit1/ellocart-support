@@ -1,0 +1,23 @@
+<ion-content>
+  <div class="head">
+    <!-- <ion-icon name="logo-angular" ></ion-icon> -->
+    <ion-img src="https://www.ellocart.com/assets/img/logo.png"></ion-img>
+    <h2>Login</h2>
+  </div>
+  <div class="centered">
+    <div class="form">
+      <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <ion-item>
+          <ion-input placeholder="Mobile Number" formControlName="mobile" type="tel" autofocus="true" minlength="10" maxlength="10"><ion-icon name="call-outline" slot="start"></ion-icon></ion-input>
+        </ion-item>
+        <!-- <ion-item>
+          <ion-input placeholder="Password" formControlName="password" type="password"><ion-icon name="key-outline" slot="start"></ion-icon></ion-input>
+        </ion-item> -->
+         <ion-button expand="block" type="submit">Login</ion-button>
+      </form>
+    </div>
+    <div class="register">
+      <p>Don't have an account? <a href="#"> Register</a></p>
+    </div>
+  </div>
+</ion-content>

@@ -24,7 +24,6 @@ export class ApiService {
 
   getCall(urlPath: string): Observable<any> {
     const url = this.apiURL + urlPath;
-    console.log(url);
     return this.http.get(url,this.httpOptions)
   }
 

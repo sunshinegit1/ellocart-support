@@ -11,11 +11,26 @@ import { HttpClientModule } from '@angular/common/http'
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
+import { LoginComponent } from './login/login.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
-  declarations: [AppComponent,DashboardComponent,OrdersComponent,OrderDetailsComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule,HttpClientModule,IonicModule,],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy },HTTP],
+  declarations: [
+    AppComponent,
+    DashboardComponent,
+    OrdersComponent,
+    OrderDetailsComponent,
+    LoginComponent],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    HttpClientModule,
+    IonicModule,
+    FormsModule,
+    ReactiveFormsModule
+  ],
+  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }, HTTP],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }
