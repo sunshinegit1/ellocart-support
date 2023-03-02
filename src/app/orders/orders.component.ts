@@ -96,4 +96,10 @@ export class OrdersComponent implements OnInit {
       console.log(res);
     })
   }
+  accept(){
+    console.log('order accepted');
+  }
+  decline(){
+    console.log('order declined');
+  }
 }

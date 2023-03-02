@@ -1,3 +1,7 @@
+ion-toolbar {
+    --background: var(--primaryBgColor);
+    --color: var(--primaryTextcolor);
+}
 ion-label{
     text-align: center;
 }
@@ -15,10 +19,6 @@ ion-img{
     display: block;
     margin: auto;
     margin-top: 10px;
-}
-ion-toolbar {
-    --background: #752dac;
-    --color: white;
 }
 .transacList p{
     font-weight: bold;

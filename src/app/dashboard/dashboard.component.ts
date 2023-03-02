@@ -20,9 +20,7 @@ export class DashboardComponent implements OnInit {
 
   getData(){
     this.api.getCall('get_today_stats.php').subscribe((res:any)=>{
-      console.log(res.today_stats);
       this.data = res.today_stats;
-      console.log(this.data);
     })
   }
 

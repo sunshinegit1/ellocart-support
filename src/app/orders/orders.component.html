@@ -7,9 +7,9 @@
 </ion-header>
 
 <ion-content>
-  <div *ngFor="let o of orders">
-    <ion-card>
-      <ion-list>
+  <div *ngFor="let o of orders" >
+    <ion-card >
+      <ion-list routerLink="/order-details">
       <ion-item>
         <ion-icon name="restaurant-outline" slot="start"></ion-icon>
         <ion-label class="ion-text-wrap">
@@ -19,12 +19,13 @@
       </ion-item>
     </ion-list>
     <ion-card-content>
-      <h3>Customer Name</h3>
-      <h3>Customer Ph</h3>
-      <div class="line">
-        <h3>Ordered Id:</h3>
-        <h3>{{o.o_total}}</h3>
-      </div>
+      <div routerLink="/order-details">
+        <h3>Customer Name</h3>
+        <h3>Customer Ph</h3>
+        <div class="line">
+          <h3>Ordered Id:</h3>
+          <h3>{{o.o_total}}</h3>
+        </div>
       <div class="line">
         <h3>1 Items</h3>
         <h3>{{o.o_status}}</h3>
@@ -34,6 +35,7 @@
         <h3>mode of payment</h3>
       </div>
       <h3>Delivery: time</h3>
+    </div>
       <div class="delivery">
         <h2 class="title">Delivery Boy Info</h2>
         <ion-list lines="none">
@@ -48,8 +50,8 @@
         </ion-list>
       </div>
       <div class="buttons">
-        <ion-button class="accept">Accept</ion-button>
-        <ion-button class="decline">Decline</ion-button>
+        <ion-button class="accept" (click)="accept()">Accept</ion-button>
+        <ion-button class="decline" (click)="decline()">Decline</ion-button>
       </div>
     </ion-card-content>
   </ion-card>

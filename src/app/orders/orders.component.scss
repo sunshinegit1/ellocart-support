@@ -1,6 +1,7 @@
+
 ion-toolbar {
-    --background: #752dac;
-    --color: white;
+    --background: var(--primaryBgColor);
+    --color: var(--primaryTextcolor);
 }
 .line{
     display: flex;
@@ -10,7 +11,7 @@ ion-toolbar {
 .delivery{
     margin-top: 15px;
     ion-button{
-        --background: #752dac;
+        --background: var(--primaryBgColor);
         width: 35%;
     }
     ion-item::part(native){

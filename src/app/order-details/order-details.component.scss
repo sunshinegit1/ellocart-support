@@ -1,6 +1,6 @@
 ion-toolbar {
-    --background: #752dac;
-    --color: white;
+    --background: var(--primaryBgColor);
+    --color: var(--primaryTextcolor);
 }
 .line{
     display: flex;
