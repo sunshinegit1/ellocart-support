@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:'http://food.sunshinetech.info/sp_api/'
+  // apiUrl:'https://eapis.sunraisedemos.com/sp_api/'
+  apiUrl:'https://eapis.sunraisedemos.com/sp_api/'
 };
 
 /*

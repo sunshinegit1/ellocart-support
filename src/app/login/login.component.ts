@@ -19,21 +19,25 @@ export class LoginComponent implements OnInit {
   login(){
     if(this.loginForm.valid){
       console.log(this.loginForm.value);
-      // const obj = {
-      //   email: this.loginForm.value.email,
-      //   password: this.loginForm.value.password
-      // }
-      // this.api.postCall('/login',obj).subscribe(res => {
-        //   console.log(res);
-        //   localStorage.setItem('token',res.token)
-        //   this.loginFormvalidators();
-        // })
-        this.router.navigateByUrl('/dashboard')
+      const obj = {
+        username: this.loginForm.value.username,
+        password: this.loginForm.value.password
+      }
+      this.api.postCall('login.php',obj).subscribe(res => {
+          console.log(res.user);
+          localStorage.setItem('user',JSON.stringify(res.user))
+          this.loginFormvalidators();
+          this.router.navigateByUrl('/dashboard')
+        })
+    } else{
+      console.log('invalid details');
+      console.log(this.loginForm.value);
     }
   }
   loginFormvalidators(){
     this.loginForm = this.fb.group({
-      mobile:['',[Validators.required,Validators.minLength(10),Validators.maxLength(10)]],
+      username:['',[Validators.required,Validators.minLength(10),Validators.pattern(/[0-9]/)]],
+      password:['',[Validators.required,Validators.minLength(6),Validators.pattern(/[0-9]/)]],
     })
   }
 }

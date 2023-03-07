@@ -9,18 +9,20 @@ import { ApiService } from '../services/api.service';
 })
 export class DashboardComponent implements OnInit {
   data:any={};
+  userData: any;
   constructor(
    private api:ApiService,
    private http:HttpClient
   ) { }
 
   ngOnInit() {
+    this.userData = JSON.parse(localStorage.getItem('user') || '');
     this.getData();
   }
 
   getData(){
-    this.api.getCall('get_today_stats.php').subscribe((res:any)=>{
-      this.data = res.today_stats;
+    this.api.postCall('get_today_stats.php',{uid:this.userData.uid}).subscribe((res:any)=>{
+      this.data = res.ResultSet;
     })
   }
 

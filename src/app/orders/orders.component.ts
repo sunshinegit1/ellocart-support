@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -7,99 +8,61 @@ import { ApiService } from '../services/api.service';
   styleUrls: ['./orders.component.scss'],
 })
 export class OrdersComponent implements OnInit {
-  orders = [
-    {
-      "id": "12",
-      "uid": "19076",
-      "rest_id": "15",
-      "odate": "2023-02-28 15:26:12",
-      "p_method_id": "2",
-      "address": "testtestSA Towers, Airport, Bhaskar Nagar, Rajamahendravaram, Andhra Pradesh 533106, India Rajamahendravaram Andhra Pradesh India 533106 ",
-      "d_charge": "21",
-      "cou_id": "0",
-      "cou_amt": "0",
-      "o_total": "276",
-      "subtotal": "240",
-      "trans_id": "2.02302281112128e 34",
-      "a_note": "",
-      "o_status": "Pending",
-      "a_status": "0",
-      "rid": "0",
-      "order_status": "0",
-      "comment_reject": null,
-      "vcommission": "15",
-      "dcommission": "0",
-      "wall_amt": "0",
-      "tax": "10",
-      "tip": "0",
-      "rest_charge": "5",
-      "lats": "17.027009595388",
-      "longs": "81.801912635565",
-      "delivertime": null,
-      "atype": "Office",
-      "rlats": null,
-      "rlongs": null,
-      "rest_store": "0",
-      "rest_title": null,
-      "rider_rate": "0",
-      "rider_title": null,
-      "otp": ""
-    },
-    {
-      "id": "13",
-      "uid": "19076",
-      "rest_id": "16",
-      "odate": "2023-02-28 15:26:42",
-      "p_method_id": "8",
-      "address": "testtestSA Towers, Airport, Bhaskar Nagar, Rajamahendravaram, Andhra Pradesh 533106, India Rajamahendravaram Andhra Pradesh India 533106 ",
-      "d_charge": "20",
-      "cou_id": "0",
-      "cou_amt": "0",
-      "o_total": "3231",
-      "subtotal": "3196",
-      "trans_id": "2.02302281112128e 34",
-      "a_note": "",
-      "o_status": "Pending",
-      "a_status": "0",
-      "rid": "0",
-      "order_status": "0",
-      "comment_reject": null,
-      "vcommission": "15",
-      "dcommission": "0",
-      "wall_amt": "0",
-      "tax": "10",
-      "tip": "0",
-      "rest_charge": "5",
-      "lats": "17.027009595388",
-      "longs": "81.801912635565",
-      "delivertime": null,
-      "atype": "Office",
-      "rlats": null,
-      "rlongs": null,
-      "rest_store": "0",
-      "rest_title": null,
-      "rider_rate": "0",
-      "rider_title": null,
-      "otp": ""
-    }
-  ]
-
+  // dboyInfo:boolean = false;
+  // assigned:boolean = false;
+  // orderAccept:boolean = true;
+  orders:any = [];
+  status: string | null = '';
+  userData:any={};
+  deliveryBoys: any;
+  oid: any;
+  rid: any;
   constructor(
     private api: ApiService,
+    private router: Router,
+    private route: ActivatedRoute,
+
   ) { }
 
   ngOnInit() {
-    this.getData()
+    this.status = this.route.snapshot.paramMap.get('status');
+    this.userData = JSON.parse(localStorage.getItem('user') || '');
+    this.getData();
+    this.getDelivertBoys();
   }
+
   getData() {
-    this.api.getCall('get_received_orders.php').subscribe((res: any) => {
-      console.log(res);
+    this.api.postCall('get_'+this.status+'_orders.php',{uid:this.userData.uid}).subscribe((res: any) => {
+      this.orders = res.ResultSet;
     })
   }
-  accept(){
-    console.log('order accepted');
+  getDelivertBoys(){
+    this.api.postCall('get_delivery_boys.php',{uid:this.userData.uid}).subscribe((res: any) => {
+      this.deliveryBoys = res.ResultSet;
+    })
   }
-  decline(){
+  accept(id: any){
+    console.log('order accepted');
+    this.api.updateCall('update_order.php',{oid: id, action:"Accept", uid:this.userData.uid}).subscribe((res:any)=>{
+      this.router.navigateByUrl('/orders/pending');
+    })
+  }
+  decline(id:any){
     console.log('order declined');
+    this.api.updateCall('update_order.php',{oid: id, action:"cancel", uid:this.userData.uid}).subscribe((res:any)=>{
+      this.getData();
+    })
+  }
+  handleChange(e: any,id:any){
+    console.log(e.detail.value,id);
+    this.rid=e.detail.value;
+    this.oid=id;
+  }
+  assign(){
+    this.api.postCall('assign_delivery_boy.php',{oid: this.oid,rid: this.rid, uid:this.userData.uid,action:"addrider"}).subscribe((res:any)=>{
+      this.rid = '';
+      this.oid = '';
+      this.getData();
+    })
   }
 }

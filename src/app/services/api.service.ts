@@ -19,7 +19,7 @@ export class ApiService {
   ) { }
   postCall(urlPath: string, postDataObj: any): Observable<any> {
     const url = this.apiURL + urlPath;
-    return this.http.post(url, postDataObj, this.httpOptions);
+    return this.http.post(url, postDataObj);
   }
 
   getCall(urlPath: string): Observable<any> {

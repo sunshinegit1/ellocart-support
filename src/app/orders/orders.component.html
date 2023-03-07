@@ -7,55 +7,73 @@
 </ion-header>
 
 <ion-content>
-  <div *ngFor="let o of orders" >
-    <ion-card >
+  <div *ngFor="let o of orders">
+    <ion-card>
       <ion-list routerLink="/order-details">
-      <ion-item>
-        <ion-icon name="restaurant-outline" slot="start"></ion-icon>
-        <ion-label class="ion-text-wrap">
-          <h2>Restaurant Name</h2>
-          <p>{{o.address}}</p>
-        </ion-label>
-      </ion-item>
-    </ion-list>
-    <ion-card-content>
-      <div routerLink="/order-details">
-        <h3>Customer Name</h3>
-        <h3>Customer Ph</h3>
-        <div class="line">
-          <h3>Ordered Id:</h3>
-          <h3>{{o.o_total}}</h3>
+        <ion-item>
+          <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+          <ion-label class="ion-text-wrap">
+            <h2>{{o.rest_name}}</h2>
+          </ion-label>
+        </ion-item>
+        <p>{{o.address}}</p>
+      </ion-list>
+      <ion-card-content>
+
+        <!-- Order Details -->
+        <div routerLink="/order-details">
+          <h3>{{o.user_name}}</h3>
+          <h3>{{o.mobile}}</h3>
+          <div class="line">
+            <h3>Ordered Id:{{o.id}}</h3>
+            <h3>&#8377;{{o.o_total}}</h3>
+          </div>
+          <div class="line">
+            <h3>{{o.items}} Items</h3>
+            <h3>{{o.o_status}}</h3>
+          </div>
+          <div class="line">
+            <h3>Scheduled: {{o.odate | date:'dd-mm-yyyy'}}</h3>
+            <h3>Payment: {{o.trans_id?'Online':'COD'}}</h3>
+          </div>
+          <h3>Delivery: {{o.delivertime}}</h3>
         </div>
-      <div class="line">
-        <h3>1 Items</h3>
-        <h3>{{o.o_status}}</h3>
-      </div>
-      <div class="line">
-        <h3>Scheduled: time</h3>
-        <h3>mode of payment</h3>
-      </div>
-      <h3>Delivery: time</h3>
-    </div>
-      <div class="delivery">
-        <h2 class="title">Delivery Boy Info</h2>
-        <ion-list lines="none">
+
+        <!-- Accept and decline buttons -->
+        <div class="buttons" *ngIf="status === 'received'">
+          <ion-button class="accept" (click)="accept(o.id)">Accept</ion-button>
+          <ion-button class="decline" (click)="decline(o.id)">Decline</ion-button>
+        </div>
+
+        <!-- Assign delivery boy -->
+        <div class="dropdown" *ngIf="status === 'pending' && o.rid ==='0'">
           <ion-item>
-            <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
-            <ion-label>
-              <h2>Nameeeeeeeeeeee</h2>
-              <p>Mobile</p>
-            </ion-label>
-            <ion-button slot="end">Call</ion-button>
+            <ion-label>Delivery Boy</ion-label>
+            <ion-select placeholder="Select Delivery Boy" (ionChange)="handleChange($event,o.id)">
+              <ion-select-option *ngFor="let d of deliveryBoys" [value]="d.id">{{d.title}}</ion-select-option>
+            </ion-select>
           </ion-item>
-        </ion-list>
-      </div>
-      <div class="buttons">
-        <ion-button class="accept" (click)="accept()">Accept</ion-button>
-        <ion-button class="decline" (click)="decline()">Decline</ion-button>
-      </div>
-    </ion-card-content>
-  </ion-card>
-</div>
+          <ion-button class="accept" (click)="assign()">Assign</ion-button>
+        </div>
+
+        <!-- Delivery boy info -->
+        <div class="delivery " *ngIf="(status === 'pending' || status ==='completed')&& o.rid !== '0'">
+          <h2 class="title">Delivery Boy Info</h2>
+          <ion-list lines="none">
+            <ion-item>
+              <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
+              <ion-label>
+                <h2>{{o.rider_name}}</h2>
+                <p>{{o.rider_mobile}}</p>
+              </ion-label>
+              <ion-button slot="end" *ngIf="status === 'pending'">Call</ion-button>
+            </ion-item>
+          </ion-list>
+        </div>
+        
+      </ion-card-content>
+    </ion-card>
+  </div>
 
 
 </ion-content>
