@@ -19,20 +19,20 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userData = JSON.parse(localStorage.getItem('user') || '');
+    this.userData = localStorage.getItem('user');
+    this.userData = JSON.parse(this.userData);
     if (this.userData) {
       this.router.navigateByUrl('/dashboard');
-    } else this.loginFormvalidators();
+    }
+    this.loginFormvalidators();
   }
   login() {
     if (this.loginForm.valid) {
-      console.log(this.loginForm.value);
       const obj = {
         username: this.loginForm.value.username,
         password: this.loginForm.value.password
       }
       this.api.postCall('login.php', obj).subscribe(res => {
-        console.log(res.user);
         localStorage.setItem('user', JSON.stringify(res.user))
         this.loginFormvalidators();
         this.router.navigateByUrl('/dashboard')

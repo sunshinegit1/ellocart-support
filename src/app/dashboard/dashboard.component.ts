@@ -27,11 +27,13 @@ export class DashboardComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.status = this.route.snapshot.paramMap.get('status');
-    this.userData = JSON.parse(localStorage.getItem('user') || '');
-    if(!this.userData){
+    this.userData = localStorage.getItem('user');
+    this.userData = JSON.parse(this.userData);
+    this.getData();
+    if(this.userData == null){
       this.router.navigateByUrl('/login');
-    } else this.getData();
+    }
+    this.status = this.route.snapshot.paramMap.get('status');
   }
 
   getData(){
@@ -42,6 +44,7 @@ export class DashboardComponent implements OnInit {
   logout(){
     localStorage.clear();
     this.router.navigateByUrl('/login');
+    window.location.reload();
   }
 
 }
