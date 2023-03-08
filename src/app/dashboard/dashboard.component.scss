@@ -1,6 +1,9 @@
 ion-toolbar {
     --background: var(--primaryBgColor);
     --color: var(--primaryTextcolor);
+    ion-icon{
+        font-size: 25px;
+    }
 }
 ion-label{
     text-align: center;

@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'order-details', component:OrderDetailsComponent},
   {
     path: '',
-    redirectTo: 'login',
+    redirectTo: 'dashboard',
     pathMatch: 'full'
   },
 ];

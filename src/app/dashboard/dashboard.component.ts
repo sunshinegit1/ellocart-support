@@ -1,5 +1,5 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -12,18 +12,24 @@ export class DashboardComponent implements OnInit {
   userData: any;
   constructor(
    private api:ApiService,
-   private http:HttpClient
+   private router:Router
   ) { }
 
   ngOnInit() {
     this.userData = JSON.parse(localStorage.getItem('user') || '');
-    this.getData();
+    if(!this.userData){
+      this.router.navigateByUrl('/login');
+    } else this.getData();
   }
 
   getData(){
     this.api.postCall('get_today_stats.php',{uid:this.userData.uid}).subscribe((res:any)=>{
       this.data = res.ResultSet;
     })
+  }
+  logout(){
+    localStorage.clear();
+    this.router.navigateByUrl('/login');
   }
 
 }
