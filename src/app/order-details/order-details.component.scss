@@ -24,3 +24,26 @@ ion-card{
     flex-direction: row;
     justify-content: space-between;
 }
+.edit{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 30px;
+    padding: 0px 10px;
+    ion-select{
+        width: 75%;
+        border: 1px solid black;
+        border-radius: 10px;
+    }
+    ion-button{
+        --background: var(--primaryBgColor);
+        margin: 0px;
+        height: auto;
+    }
+}
+.editbtn{
+    display: block;
+    margin-left: auto;
+    --background: var(--primaryBgColor);
+    width: 25%;
+}
