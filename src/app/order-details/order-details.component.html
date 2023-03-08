@@ -12,8 +12,8 @@
       <ion-item>
         <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
         <ion-label>
-          <h2>Restaurant Name</h2>
-          <h3>phone</h3>
+          <h2>{{orderData.rest_name}}</h2>
+          <h3>{{orderData.address}}</h3>
         </ion-label>
       </ion-item>
     </ion-list>
@@ -24,59 +24,59 @@
       <ion-item>
         <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
         <ion-label>
-          <h2>User Name</h2>
-          <h3>phone</h3>
-          <h3>Price</h3>
-          <h3>Delivery:</h3>
-          <h3>OrderId:</h3>
-          <h3>Item:</h3>
-          <h3>Mode of Payment</h3>
+          <h2>{{orderData.user_name}}</h2>
+          <h3>{{orderData.mobile}}</h3>
+          <h3>&#8377;{{orderData.o_total}}</h3>
+          <h3>Delivery:{{orderData.deliverytime}}</h3>
+          <h3>OrderId:{{orderData.id}}</h3>
+          <h3>Item:{{orderData.id}}</h3>
+          <h3>Mode of Payment: {{orderData.trans_id?'Online':'COD'}}</h3>
         </ion-label>
       </ion-item>
     </ion-list>
     <div class="line">
-      <h3>Product: &#8377;200</h3>
-      <h3>Coupon: &#8377;0</h3>
-      <h3>Delivery: &#8377;20</h3>
+      <h3>Product: &#8377;{{orderData.subtotal}}</h3>
+      <h3>Coupon: &#8377;{{orderData.cou_amt}}</h3>
+      <h3>Delivery: &#8377;{{orderData.d_charge}}</h3>
     </div>
   </ion-card>
   <h3 class="title">Address Details</h3>
   <ion-card>
     <ion-card-content>
-      <h3>User Name</h3>
-      <h3>User Phone</h3>
-      <h3>User Address</h3>
+      <h2>{{orderData.user_name}}</h2>
+      <h3>{{orderData.mobile}}</h3>
+      <h3>{{orderData.address}}</h3>
     </ion-card-content>
   </ion-card>
   <h3 class="title">Payment Details</h3>
   <ion-card>
     <ion-card-content>
-      <h3>Order Total Items:</h3>
-      <h3>Order Total:</h3>
-      <h3>Order Delivery:</h3>
-      <h3>Order Coupon:</h3>
-      <h3>Order Wallet:</h3>
-      <h3>Order Promo Wallet:</h3>
-      <h3>Order Tax:</h3>
-      <h3>Orderc1(weather):</h3>
-      <h3>Orderc2(packing):</h3>
+      <h3>Order Total Items:{{orderData.items}}</h3>
+      <h3>Order Total:{{orderData.o_total}}</h3>
+      <h3>Order Delivery:{{orderData.deliverytime}}</h3>
+      <h3>Order Coupon:{{orderData.cou_amt}}</h3>
+      <h3>Order Wallet:{{orderData.wall_amt}}</h3>
+      <h3>Order Promo Wallet:???</h3>
+      <h3>Order Tax:{{orderData.tax}}</h3>
+      <h3>Orderc1(weather):???</h3>
+      <h3>Orderc2(packing):???</h3>
     </ion-card-content>
   </ion-card>
   <h3 class="title">Timings</h3>
   <ion-card>
     <ion-card-content>
-      <h3>Order Accept Time:</h3>
-      <h3>Order Pickup Time:</h3>
-      <h3>Order Delivery Time:</h3>
-      <h3>Order Cancelled Time:</h3>
+      <h3>Order Accept Time:{{orderData.odate}}</h3>
+      <h3>Order Pickup Time:???</h3>
+      <h3>Order Delivery Time:{{orderData.deliverytime}}</h3>
+      <h3>Order Cancelled Time:???</h3>
     </ion-card-content>
   </ion-card>
   <h3 class="title">Commission</h3>
   <ion-card>
     <ion-card-content>
-      <h3>Order Commission Total (20%):</h3>
-      <h3>Order Delivery Commission Total( &#8377;0):</h3>
-      <h3>Order Franchise Commission Total( &#8377;0):</h3>
+      <h3>Order Commission Total (20%):???</h3>
+      <h3>Order Delivery Commission Total( &#8377;0):???</h3>
+      <h3>Order Franchise Commission Total( &#8377;0):???</h3>
     </ion-card-content>
   </ion-card>
   <h3 class="title">Delivery Information</h3>
@@ -85,8 +85,8 @@
       <ion-item>
         <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
         <ion-label>
-          <h2>Delivery Boy Name</h2>
-          <h3>phone</h3>
+          <h2>{{orderData.rider_name}}</h2>
+          <h3>{{orderData.rider_mobile}}</h3>
         </ion-label>
       </ion-item>
     </ion-list>
@@ -99,8 +99,8 @@
         <ion-label>
           <h3>Product Name</h3>
           <div class="product">
-            <p>1 Item</p>
-            <p>price</p>
+            <p>{{orderData.item}}</p>
+            <p>&#8377;{{orderData.subtotal}}</p>
           </div>
         </ion-label>
       </ion-item>

@@ -9,7 +9,7 @@
 <ion-content>
   <div *ngFor="let o of orders">
     <ion-card>
-      <ion-list routerLink="/order-details">
+      <ion-list [routerLink]="['/order-details', o.id]">
         <ion-item>
           <ion-icon name="restaurant-outline" slot="start"></ion-icon>
           <ion-label class="ion-text-wrap">
@@ -21,7 +21,7 @@
       <ion-card-content>
 
         <!-- Order Details -->
-        <div routerLink="/order-details">
+        <div [routerLink]="['/order-details', o.id]">
           <h3>{{o.user_name}}</h3>
           <h3>{{o.mobile}}</h3>
           <div class="line">

@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: 'login', component:LoginComponent},
   {path: 'dashboard', component:DashboardComponent},
   {path: 'orders/:status', component:OrdersComponent},
-  {path: 'order-details', component:OrderDetailsComponent},
+  {path: 'order-details/:oid', component:OrderDetailsComponent},
   {
     path: '',
     redirectTo: 'login',
