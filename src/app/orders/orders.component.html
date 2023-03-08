@@ -66,7 +66,7 @@
                 <h2>{{o.rider_name}}</h2>
                 <p>{{o.rider_mobile}}</p>
               </ion-label>
-              <ion-button slot="end" *ngIf="status === 'pending'">Call</ion-button>
+              <ion-button slot="end" *ngIf="status === 'pending'" (click)="call(o.rider_mobile)">Call</ion-button>
             </ion-item>
           </ion-list>
         </div>

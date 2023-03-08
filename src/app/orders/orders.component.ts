@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
 import { ApiService } from '../services/api.service';
 
 @Component({
   selector: 'app-orders',
   templateUrl: './orders.component.html',
   styleUrls: ['./orders.component.scss'],
+  providers : [CallNumber]
 })
 export class OrdersComponent implements OnInit {
   // dboyInfo:boolean = false;
@@ -21,7 +23,7 @@ export class OrdersComponent implements OnInit {
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-
+    private callNumber: CallNumber
   ) { }
 
   ngOnInit() {
@@ -64,5 +66,10 @@ export class OrdersComponent implements OnInit {
       this.oid = '';
       this.getData();
     })
+  }
+  call(mobile:any){
+    this.callNumber.callNumber(mobile, true)
+  .then(res => console.log('Launched dialer!', res))
+  .catch(err => console.log('Error launching dialer', err));
   }
 }
