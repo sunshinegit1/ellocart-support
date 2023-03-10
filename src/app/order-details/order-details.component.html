@@ -26,15 +26,24 @@
         <ion-label>
           <h2>{{orderData.user_name}}</h2>
           <h3>{{orderData.mobile}}</h3>
-          <h3>&#8377;{{orderData.o_total}}</h3>
+          
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label>
+          <div class="line">
+            <h3>OrderId:{{orderData.id}}</h3>
+            <h3>&#8377;{{orderData.o_total}}</h3>
+          </div>
+          <div class="line">
+            <h3>Item:{{orderData.items}}</h3>
+            <h3>Mode of Payment: {{orderData.trans_id?'Online':'COD'}}</h3>
+          </div>
           <h3>Delivery:{{orderData.deliverytime}}</h3>
-          <h3>OrderId:{{orderData.id}}</h3>
-          <h3>Item:{{orderData.id}}</h3>
-          <h3>Mode of Payment: {{orderData.trans_id?'Online':'COD'}}</h3>
         </ion-label>
       </ion-item>
     </ion-list>
-    <div class="line">
+    <div class="line1">
       <h3>Product: &#8377;{{orderData.subtotal}}</h3>
       <h3>Coupon: &#8377;{{orderData.cou_amt}}</h3>
       <h3>Delivery: &#8377;{{orderData.d_charge}}</h3>
@@ -85,7 +94,7 @@
       <ion-item>
         <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
         <ion-label>
-          <h2>{{orderData.rider_name}}</h2>
+          <h2>{{orderData.rider_name || 'Not Assigned'}}</h2>
           <h3>{{orderData.rider_mobile}}</h3>
         </ion-label>
       </ion-item>
@@ -116,12 +125,16 @@
         <ion-content class="ion-padding">
           <ion-searchbar placeholder="Search Products" (ionChange)="searchProduct($event)"></ion-searchbar>
           <ion-item *ngFor="let p of products; let i=index;">
-            <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
+            <ion-img class="pimg" [src]="'https://eapis.sunraisedemos.com/'+p.item_img" alt="img" slot="start"></ion-img>
             <ion-label>
-              <h3>{{p.name}}</h3>
               <div class="product">
-                <p>{{p.quantity}} Items</p>
-                <p>&#8377;{{p.price}}</p>
+                <h3>{{p.ptitle}}</h3>
+                <ion-img *ngIf="p.is_veg === '0'" src="../../assets/icon/nonveg.png"></ion-img>
+                <ion-img *ngIf="p.is_veg === '1'" src="../../assets/icon/veg.png"></ion-img>
+              </div>
+              <div class="product">
+                <p>{{p.pquantity}} Items</p>
+                <p>&#8377;{{p.pprice}}</p>
                 <ion-icon (click)="removeProduct(i)" name="trash-outline"></ion-icon>
               </div>
             </ion-label>
@@ -131,12 +144,16 @@
     </ion-modal>
     <ion-list>
       <ion-item *ngFor="let p of products; let i=index;">
-        <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
+        <ion-img class="pimg" [src]="'https://eapis.sunraisedemos.com/'+p.item_img" alt="img" slot="start"></ion-img>
         <ion-label>
-          <h3>{{p.name}}</h3>
           <div class="product">
-            <p>{{p.quantity}} Items</p>
-            <p>&#8377;{{p.price}}</p>
+            <h3>{{p.ptitle}}</h3>
+            <ion-img *ngIf="p.is_veg === '0'" src="../../assets/icon/nonveg.png"></ion-img>
+            <ion-img *ngIf="p.is_veg === '1'" src="../../assets/icon/veg.png"></ion-img>
+          </div>
+          <div class="product">
+            <p>{{p.pquantity}} Items</p>
+            <p>&#8377;{{p.pprice}}</p>
             <!-- <ion-icon *ngIf="remove" (click)="removeProduct(i)" name="trash-outline"></ion-icon> -->
           </div>
         </ion-label>

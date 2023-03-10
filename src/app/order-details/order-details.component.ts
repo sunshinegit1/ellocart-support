@@ -14,50 +14,7 @@ export class OrderDetailsComponent implements OnInit {
   oid: any;
   orderData:any=[];
   remove=false;
-  products=[
-    {
-      id:1,
-      name:'p1',
-      price: 245,
-      quantity: 2,
-      selected:true
-    },
-    {
-      id:2,
-      name:'p2',
-      price: 230,
-      quantity: 1,
-      selected:true
-    },
-    {
-      id:3,
-      name:'p3',
-      price: 150,
-      quantity: 4,
-      selected:true
-    },
-    {
-      id:4,
-      name:'p4',
-      price: 120,
-      quantity: 2,
-      selected:false
-    },
-    {
-      id:5,
-      name:'p5',
-      price: 350,
-      quantity: 1,
-      selected:false
-    },
-    {
-      id:6,
-      name:'p6',
-      price: 400,
-      quantity: 4,
-      selected:false
-    }
-  ];
+  products:any=[];
 
   constructor(
     private api:ApiService,
@@ -72,8 +29,8 @@ export class OrderDetailsComponent implements OnInit {
   }
   getOrderDetails(id:any){
     this.api.postCall('get_order_details.php',{uid:this.userData.uid, oid:id}).subscribe((res:any)=>{
-      console.log(res);
       this.orderData = res.ResultSet;
+      this.products = res.ProductsData;
     })
   }
   editProducts(){

@@ -14,6 +14,7 @@ export class OrdersComponent implements OnInit {
   // assigned:boolean = false;
   // orderAccept:boolean = true;
   orders:any = [];
+  searchResults:any = [];
   status: string | null = '';
   userData:any={};
   deliveryBoys: any;
@@ -36,6 +37,7 @@ export class OrdersComponent implements OnInit {
   getData() {
     this.api.postCall('get_'+this.status+'_orders.php',{uid:this.userData.uid}).subscribe((res: any) => {
       this.orders = res.ResultSet;
+      this.searchResults = [...res.ResultSet];
     })
   }
   getDelivertBoys(){
@@ -71,5 +73,10 @@ export class OrdersComponent implements OnInit {
     this.callNumber.callNumber(mobile, true)
   .then(res => console.log('Launched dialer!', res))
   .catch(err => console.log('Error launching dialer', err));
+  }
+  searchOrders(e:any){
+    this.searchResults=this.orders.filter((elem:any)=>{
+      return elem.id.endsWith(e.detail.value)
+    })
   }
 }

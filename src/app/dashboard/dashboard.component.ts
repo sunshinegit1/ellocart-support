@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { App } from '@capacitor/app';
-import { Platform } from '@ionic/angular';
+import { IonModal, Platform } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 
 @Component({
@@ -13,6 +13,8 @@ export class DashboardComponent implements OnInit {
   data:any={};
   userData: any;
   status: any;
+  @ViewChild(IonModal) modal!:IonModal;
+
   constructor(
    private api:ApiService,
    private router:Router,
@@ -46,5 +48,10 @@ export class DashboardComponent implements OnInit {
     this.router.navigateByUrl('/login');
     window.location.reload();
   }
+ selectDate(e:any){
+  console.log(e.detail.value);
+  console.log(new Date(e.detail.value).toLocaleDateString());
+  this.modal.dismiss();
+ }
 
 }

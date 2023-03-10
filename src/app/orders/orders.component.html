@@ -7,16 +7,17 @@
 </ion-header>
 
 <ion-content>
-  <div *ngFor="let o of orders">
+  <ion-searchbar placeholder="Enter Order Id" (ionChange)="searchOrders($event)" ></ion-searchbar>
+  <div *ngFor="let o of searchResults">
     <ion-card>
-      <ion-list [routerLink]="['/order-details', o.id]">
+      <ion-list [routerLink]="['/order-details', o.id]" lines="none">
         <ion-item>
           <ion-icon name="restaurant-outline" slot="start"></ion-icon>
           <ion-label class="ion-text-wrap">
             <h2>{{o.rest_name}}</h2>
+            <p>{{o.address}}</p>
           </ion-label>
         </ion-item>
-        <p>{{o.address}}</p>
       </ion-list>
       <ion-card-content>
 
@@ -30,7 +31,7 @@
           </div>
           <div class="line">
             <h3>{{o.items}} Items</h3>
-            <h3>{{o.o_status}}</h3>
+            <h3>{{o.a_status ==='0' && status === 'received'?'New Order':o.o_status}}</h3>
           </div>
           <div class="line">
             <h3>Scheduled: {{o.odate | date:'dd-MM-yyyy'}}</h3>

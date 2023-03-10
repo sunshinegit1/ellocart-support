@@ -15,22 +15,20 @@
           <ion-icon name="cart-outline" slot="start"></ion-icon>
           <ion-label>
             <h2>{{userData.username}}</h2>
-          <p>{{userData.username}}</p>
+            <p>{{userData.username}}</p>
           </ion-label>
         </ion-item>
       </ion-list>
     </ion-card-content>
   </ion-card>
-  <ion-datetime-button datetime="datetime">
-  </ion-datetime-button>
 
+  <ion-datetime-button datetime="datetime"></ion-datetime-button>
   <ion-modal [keepContentsMounted]="true">
     <ng-template>
-      <ion-datetime id="datetime" locale="en-US">
-        <span slot="time-label">Time</span>
-      </ion-datetime>
+      <ion-datetime id="datetime" presentation="date" (ionChange)="selectDate($event)"></ion-datetime>
     </ng-template>
   </ion-modal>
+
   <ion-card>
     <ion-card-header>
       <ion-card-title>Today Transactions</ion-card-title>
@@ -39,7 +37,6 @@
 
       <ion-list class="transacList">
         <ion-grid>
-
           <ion-row>
             <ion-col>
               <ion-item>
