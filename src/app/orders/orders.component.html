@@ -60,6 +60,7 @@
         <!-- Delivery boy info -->
         <div class="delivery " *ngIf="(status === 'pending' || status ==='completed')&& o.rid !== '0'">
           <h2 class="title">Delivery Boy Info</h2>
+          <p class="location" id="open-modal" (click)="openMap()">View Location</p>
           <ion-list lines="none">
             <ion-item>
               <ion-img src="../../assets/icon/vj-yellow-64.png" slot="start"></ion-img>
@@ -70,11 +71,27 @@
               <ion-button slot="end" *ngIf="status === 'pending'" (click)="call(o.rider_mobile)">Call</ion-button>
             </ion-item>
           </ion-list>
+          <!-- maps model -->
+          <ion-modal trigger="open-modal">
+            <ng-template>
+              <ion-header>
+                <ion-toolbar>
+                  <ion-buttons slot="end">
+                    <ion-button (click)="modal.dismiss()">Close</ion-button>
+                  </ion-buttons>
+                  <ion-title>Location</ion-title>
+                  <!-- <ion-buttons slot="end">
+                    <ion-button (click)="confirm()" [strong]="true">Confirm</ion-button>
+                  </ion-buttons> -->
+                </ion-toolbar>
+              </ion-header>
+              <ion-content class="ion-padding">
+                <div id="map"></div>
+              </ion-content>
+            </ng-template>
+          </ion-modal>
         </div>
-        
       </ion-card-content>
     </ion-card>
   </div>
-
-
 </ion-content>

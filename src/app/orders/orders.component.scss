@@ -24,6 +24,10 @@ ion-toolbar {
         font-weight: 500;
         font-size: 20px;
     }
+    .location{
+        text-align: right;
+        color: var(--primaryBgColor);
+    }
    
 }
 .buttons,.dropdown{
@@ -38,4 +42,46 @@ ion-toolbar {
     .decline{
         --background: #e62424;
     }
+}
+.geocoder{
+    width:100%
+}
+.mapboxgl-ctrl-geocoder{
+    width:100%!important;
+    max-width:100%
+}
+.picomplete{
+    position:relative;
+}
+.picomplete-items{
+    position:absolute;
+    border:1px solid #d4d4d4;
+    border-bottom:none;
+    border-top:none;
+    z-index:99;
+    top:100%;
+    left:15px;
+    right:0;
+    width:92%;
+    overflow-y:scroll;
+    max-height:300px;
+    scrollbar-width:thin!important
+}
+.picomplete-items div{
+    padding:.75rem 1.25rem;
+    cursor:pointer;
+    background-color:#fff;
+    border-bottom:1px solid #d4d4d4
+}
+.picomplete-items div:hover{
+    background-color:#e9e9e9
+}.selectAuto{
+    cursor:pointer
+}
+#map {
+    width: 90vw;
+    height: 90vh;
+    border: rgb(0, 0, 0);
+    border-style: solid;
+    border-radius: 15px;
 }

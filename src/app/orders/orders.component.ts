@@ -1,7 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
+import { IonModal } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
+import * as mapboxgl from 'mapbox-gl';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-orders',
@@ -20,6 +23,11 @@ export class OrdersComponent implements OnInit {
   deliveryBoys: any;
   oid: any;
   rid: any;
+  maps:any;
+  coords:any;
+  clat = 17.0000000; clng = 81.0000000;
+  @ViewChild(IonModal) modal!: IonModal;
+  
   constructor(
     private api: ApiService,
     private router: Router,
@@ -78,5 +86,33 @@ export class OrdersComponent implements OnInit {
     this.searchResults=this.orders.filter((elem:any)=>{
       return elem.id.endsWith(e.detail.value)
     })
+  }
+  //maps
+  openMap(){
+ setTimeout(() => {
+     this.onload();
+ }, 1000);
+  }
+  close() {
+    console.log('close');
+    this.modal.dismiss();
+  }
+  onload(){
+    console.log('sa');
+    
+    (mapboxgl as any).accessToken = environment.mapboxKey;
+
+    this.coords = document.getElementById('coordinates');
+    this.maps = new mapboxgl.Map({
+    container: 'map', // container ID
+    // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
+    style: 'mapbox://styles/mapbox/streets-v12', // style URL
+    center: [this.clng, this.clat], // starting position17.0266923,81.8017798
+    zoom: 15 // starting zoom
+    });
+    
+    // Add zoom and rotation controls to the map.
+    this.maps.addControl(new mapboxgl.NavigationControl());
+    // this.createMarker(this.clng, this.clat,true);
   }
 }
