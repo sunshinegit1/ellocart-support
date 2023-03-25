@@ -25,8 +25,9 @@ export class OrdersComponent implements OnInit {
   rid: any;
   maps:any;
   coords:any;
-  clat = 17.0000000; clng = 81.0000000;
+  clat = 17.018882; clng = 81.8115043;
   @ViewChild(IonModal) modal!: IonModal;
+  marker:any;
   
   constructor(
     private api: ApiService,
@@ -88,31 +89,86 @@ export class OrdersComponent implements OnInit {
     })
   }
   //maps
-  openMap(){
+  openMap(data:any){
  setTimeout(() => {
-     this.onload();
+     this.onload(data);
  }, 1000);
   }
   close() {
     console.log('close');
     this.modal.dismiss();
   }
-  onload(){
-    console.log('sa');
-    
+  async onload(data:any){
     (mapboxgl as any).accessToken = environment.mapboxKey;
-
-    this.coords = document.getElementById('coordinates');
     this.maps = new mapboxgl.Map({
     container: 'map', // container ID
     // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
     style: 'mapbox://styles/mapbox/streets-v12', // style URL
-    center: [this.clng, this.clat], // starting position17.0266923,81.8017798
-    zoom: 15 // starting zoom
+    center: [data.user[1],data.user[0]], // starting position17.0266923,81.8017798
+    zoom: 9 // starting zoom
     });
     
-    // Add zoom and rotation controls to the map.
-    this.maps.addControl(new mapboxgl.NavigationControl());
-    // this.createMarker(this.clng, this.clat,true);
+    this.createMarker(data.user[1],data.user[0]);
+    this.createMarker(data.seller[1],data.seller[0]);
+
+    var latlngs = [
+      data.user.reverse(),data.seller.reverse()
+    ];
+    const newCoords = latlngs.join(';');
+    // Set the radius for each coordinate pair to 25 meters
+    const radius = latlngs.map(() => 25);
+    const radiuses = radius.join(';');
+    const profile = 'driving';
+    // Create the query
+    const query = await fetch(
+    `https://api.mapbox.com/matching/v5/mapbox/${profile}/${newCoords}?geometries=geojson&radiuses=${radiuses}&steps=true&access_token=pk.eyJ1IjoidHNtc3Bnb24iLCJhIjoiY2pxZjgxNnF6NGF3YTQybjJlZHZmcG0ybyJ9.CYQ0-i7Vvmtr0zCvxxSEDQ`,
+    { method: 'GET' }
+    );
+    const response = await query.json();
+    // Handle errors
+    if (response.code !== 'Ok') {
+    alert(
+    `${response.code} - ${response.message}.\n\nFor more information: https://docs.mapbox.com/api/navigation/map-matching/#map-matching-api-errors`
+    );
+    return;
+    }
+    const coords = response.matchings[0].geometry;
+    this.maps.addLayer({
+      'id': 'route',
+      'type': 'line',
+      'source': {
+        'type': 'geojson',
+        'data': {
+          'type': 'Feature',
+          'properties': {},
+          'geometry': coords
+        }
+      },
+      'layout': {
+        'line-join': 'round',
+        'line-cap': 'round'
+      },
+      'paint': {
+        'line-color': 'black',
+        'line-width': 3,
+        'line-opacity': 1
+      }
+      });
+    this.maps.fitBounds(latlngs);
+
+  }
+
+  createMarker(long:any,lat:any){
+    const el = document.createElement('div');
+    el.className = 'custom_marker';
+      let colour = '#2ebb74';
+      let title = 'My location';
+    var popup = new mapboxgl.Popup().setText(title);
+    this.marker = new mapboxgl.Marker({
+      color:colour
+    })
+      .setLngLat([long,lat])
+      .setPopup(popup)
+      .addTo(this.maps);
   }
 }
