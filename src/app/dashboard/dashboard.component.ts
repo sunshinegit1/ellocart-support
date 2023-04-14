@@ -19,14 +19,8 @@ export class DashboardComponent implements OnInit {
    private api:ApiService,
    private router:Router,
    private platform: Platform,
-   private route: ActivatedRoute
-  ) {
-    this.platform.backButton.subscribeWithPriority(-1, () => {
-      if (this.status === 'dashboard') {
-        App.exitApp();
-      }
-    });
-   }
+   private route: ActivatedRoute,
+  ) {}
 
   ngOnInit() {
     this.userData = localStorage.getItem('user');
@@ -35,7 +29,7 @@ export class DashboardComponent implements OnInit {
     if(this.userData == null){
       this.router.navigateByUrl('/login');
     }
-    this.status = this.route.snapshot.paramMap.get('status');
+    this.status = this.route.snapshot.routeConfig?.path;
   }
 
   getData(){
@@ -46,7 +40,7 @@ export class DashboardComponent implements OnInit {
   logout(){
     localStorage.clear();
     this.router.navigateByUrl('/login');
-    window.location.reload();
+    // window.location.reload();
   }
  selectDate(e:any){
   console.log(e.detail.value);

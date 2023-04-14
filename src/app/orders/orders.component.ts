@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CallNumber } from '@awesome-cordova-plugins/call-number/ngx';
-import { IonModal } from '@ionic/angular';
+import { IonModal, Platform } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
@@ -28,13 +28,22 @@ export class OrdersComponent implements OnInit {
   clat = 17.018882; clng = 81.8115043;
   @ViewChild(IonModal) modal!: IonModal;
   marker:any;
+  mapPage=false;
   
   constructor(
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute,
-    private callNumber: CallNumber
-  ) { }
+    private callNumber: CallNumber,
+    private platform:Platform
+  ) { 
+    this.platform.backButton.subscribeWithPriority(10, () => {
+      if(this.mapPage===true){
+        this.mapPage=false;
+        this.modal.dismiss();
+      }
+    });
+  }
 
   ngOnInit() {
     this.status = this.route.snapshot.paramMap.get('status');
@@ -90,9 +99,10 @@ export class OrdersComponent implements OnInit {
   }
   //maps
   openMap(data:any){
- setTimeout(() => {
-     this.onload(data);
- }, 1000);
+    this.mapPage=false;
+    setTimeout(() => {
+        this.onload(data);
+    }, 1000);
   }
   close() {
     console.log('close');
