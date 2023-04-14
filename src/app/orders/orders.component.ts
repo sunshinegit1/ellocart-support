@@ -29,6 +29,7 @@ export class OrdersComponent implements OnInit {
   @ViewChild(IonModal) modal!: IonModal;
   marker:any;
   mapPage=false;
+  selectedDate: any;
   
   constructor(
     private api: ApiService,
@@ -48,12 +49,13 @@ export class OrdersComponent implements OnInit {
   ngOnInit() {
     this.status = this.route.snapshot.paramMap.get('status');
     this.userData = JSON.parse(localStorage.getItem('user') || '');
+    this.selectedDate = localStorage.getItem("selectedDate");
     this.getData();
     this.getDelivertBoys();
   }
 
   getData() {
-    this.api.postCall('get_'+this.status+'_orders.php',{uid:this.userData.uid}).subscribe((res: any) => {
+    this.api.postCall('get_'+this.status+'_orders.php',{uid:this.userData.uid, odate:this.selectedDate}).subscribe((res: any) => {
       this.orders = res.ResultSet;
       this.searchResults = [...res.ResultSet];
     })

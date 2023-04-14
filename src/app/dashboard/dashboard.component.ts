@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { App } from '@capacitor/app';
 import { IonModal, Platform } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -13,6 +14,7 @@ export class DashboardComponent implements OnInit {
   data:any={};
   userData: any;
   status: any;
+  selectedDate: any;
   @ViewChild(IonModal) modal!:IonModal;
 
   constructor(
@@ -23,6 +25,7 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    // localStorage.removeItem("selectedDate");
     this.userData = localStorage.getItem('user');
     this.userData = JSON.parse(this.userData);
     this.getData();
@@ -45,6 +48,9 @@ export class DashboardComponent implements OnInit {
  selectDate(e:any){
   console.log(e.detail.value);
   console.log(new Date(e.detail.value).toLocaleDateString());
+  this.selectedDate = formatDate(e.detail.value,'yyyy-MM-dd',"en-US");
+  console.log(this.selectedDate);
+  localStorage.setItem("selectedDate", this.selectedDate);
   this.modal.dismiss();
  }
 
