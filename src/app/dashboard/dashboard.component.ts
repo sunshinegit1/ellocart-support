@@ -25,7 +25,12 @@ export class DashboardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    // localStorage.removeItem("selectedDate");
+    localStorage.removeItem("selectedDate");
+    const todayDate= new Date();    
+    this.selectedDate = formatDate(todayDate,'yyyy-MM-dd',"en-US");
+    if(!localStorage.getItem("selectedDate")){
+      localStorage.setItem("selectedDate", this.selectedDate);
+    }
     this.userData = localStorage.getItem('user');
     this.userData = JSON.parse(this.userData);
     this.getData();
@@ -46,10 +51,7 @@ export class DashboardComponent implements OnInit {
     // window.location.reload();
   }
  selectDate(e:any){
-  console.log(e.detail.value);
-  console.log(new Date(e.detail.value).toLocaleDateString());
   this.selectedDate = formatDate(e.detail.value,'yyyy-MM-dd',"en-US");
-  console.log(this.selectedDate);
   localStorage.setItem("selectedDate", this.selectedDate);
   this.modal.dismiss();
  }
