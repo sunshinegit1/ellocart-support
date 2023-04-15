@@ -8,6 +8,18 @@
 
 <ion-content>
   <ion-searchbar placeholder="Enter Order Id" (ionChange)="searchOrders($event)" ></ion-searchbar>
+  <div *ngIf="errorMessage">
+    <ion-card>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="restaurant-outline" slot="start"></ion-icon>
+          <ion-label class="ion-text-wrap">
+            <h2>{{errorMessage}}</h2>
+          </ion-label>
+        </ion-item>
+      </ion-list>
+    </ion-card>
+  </div>
   <div *ngFor="let o of searchResults">
     <ion-card>
       <ion-list [routerLink]="['/order-details', o.id]" lines="none">

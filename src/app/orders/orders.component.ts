@@ -30,6 +30,7 @@ export class OrdersComponent implements OnInit {
   marker:any;
   mapPage=false;
   selectedDate: any;
+  errorMessage: any;
   
   constructor(
     private api: ApiService,
@@ -55,9 +56,12 @@ export class OrdersComponent implements OnInit {
   }
 
   getData() {
+    this.errorMessage = "";
     this.api.postCall('get_'+this.status+'_orders.php',{uid:this.userData.uid, odate:this.selectedDate}).subscribe((res: any) => {
       this.orders = res.ResultSet;
       this.searchResults = [...res.ResultSet];
+      if(this.searchResults.length === 0)
+        this.errorMessage = "No Orders Found";
     })
   }
   getDelivertBoys(){
