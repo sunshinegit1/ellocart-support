@@ -119,6 +119,13 @@
       <ion-card-title>Orders List</ion-card-title>
     </ion-card-header>
     <ion-card-content>
+      <div>
+        <ion-button (click)="filter()">Filter</ion-button>
+      </div>
+      <div *ngIf="filterStatus">
+       <ion-button routerLink="/restaurants">Select by Restaurants</ion-button>
+       <ion-button routerLink="/categories">Select by Category</ion-button>
+      </div>
       <ion-list lines="none">
         <ion-grid>
           <ion-row>

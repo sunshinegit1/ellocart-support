@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   userData: any;
   status: any;
   selectedDate: any;
+  filterStatus:boolean = false;
   @ViewChild(IonModal) modal!:IonModal;
 
   constructor(
@@ -55,5 +56,9 @@ export class DashboardComponent implements OnInit {
   localStorage.setItem("selectedDate", this.selectedDate);
   this.modal.dismiss();
  }
+ filter(){
+  this.filterStatus = !this.filterStatus;
+ }
+
 
 }

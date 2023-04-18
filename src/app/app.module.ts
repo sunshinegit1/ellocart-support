@@ -13,6 +13,8 @@ import { OrdersComponent } from './orders/orders.component';
 import { OrderDetailsComponent } from './order-details/order-details.component';
 import { LoginComponent } from './login/login.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RestaurantsComponent } from './restaurants/restaurants.component';
+import { CategoriesComponent } from './categories/categories.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     DashboardComponent,
     OrdersComponent,
     OrderDetailsComponent,
-    LoginComponent],
+    LoginComponent,
+    RestaurantsComponent,
+    CategoriesComponent
+  ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(),
