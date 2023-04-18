@@ -11,6 +11,7 @@ ion-content p
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 .delivery{
     margin-top: 15px;
@@ -99,4 +100,9 @@ ion-content::part(scroll) {
     padding-right: 0%;
     padding-top: 0%;
     padding-bottom: 0%;
+  }
+  .ccall{
+    --background: #0ec223;
+    width: 28%;
+    height: 25px;
   }

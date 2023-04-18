@@ -15,6 +15,7 @@ export class RestaurantsComponent implements OnInit {
     rs0:[],
     rs1:[],
   };
+  searchResults: any;
 
   constructor(
     private api:ApiService
@@ -28,6 +29,7 @@ export class RestaurantsComponent implements OnInit {
   getRestaurants(){
     this.api.postCall('get_restaurants.php',{uid:this.userData.uid}).subscribe((res:any)=>{
       this.restaurants = res.ResultSet;
+      this.searchResults = [...res.ResultSet]
     //   this.checkAll = false;
     //   this.checkAll = this.restaurants.every((elem:any)=> elem.rstatus === '1');
     // console.log(this.checkAll);
@@ -60,16 +62,12 @@ export class RestaurantsComponent implements OnInit {
     //   this.selectedList.rs0.push(id)
     // }
 }
-submit(){
-    console.log(this.selectedList);
-    let obj={
-      uid:this.userData.uid,
-      rest0:this.selectedList.rs0.toString(),
-      rest1:this.selectedList.rs1.toString(),
-    }
-    this.api.postCall('update_restaurant.php',obj).subscribe((res:any)=>{
-      console.log(res);
+
+  search(e:any){
+    this.searchResults=this.restaurants.filter((ele:any)=>{
+      let title = ele.title.toLowerCase();
+      return title.match(e.detail.value.toLowerCase())
     })
-  }
+   }
 
 }

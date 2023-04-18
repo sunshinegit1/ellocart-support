@@ -3,15 +3,15 @@
     <ion-title>
       Restaurants
     </ion-title>
-    <ion-icon slot="end" (click)="submit()" name="save-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 <ion-content class="ion-padding" force-overscroll="true">
+  <ion-searchbar (ionChange)="search($event)"></ion-searchbar>
   <ion-list>
     <!-- <ion-item>
       All<ion-toggle slot="end" (click)="selectAll($event)" value="%" [checked]="checkAll"></ion-toggle>
     </ion-item> -->
-    <ion-item *ngFor="let r of restaurants">
+    <ion-item *ngFor="let r of searchResults">
       {{r.title}}<ion-toggle slot="end" [value]="r.id" (ionChange)="select($event,r.id)" [checked]="r.rstatus==='1'?true:false"></ion-toggle>
     </ion-item>
   </ion-list>

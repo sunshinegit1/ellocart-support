@@ -36,10 +36,13 @@
         <!-- Order Details -->
         <div [routerLink]="['/order-details', o.id]">
           <h3>{{o.user_name}}</h3>
-          <h3>{{o.mobile}}</h3>
           <div class="line">
-            <h3>Ordered Id:{{o.id}}</h3>
-            <h3>&#8377;{{o.o_total}}</h3>
+            <h3>{{o.mobile}}</h3>
+            <ion-button class="ccall" (click)="call(o.mobile)">Call</ion-button>
+          </div>
+          <div class="line">
+            <h3>Ordered Id: {{o.id}}</h3>
+            <h3>&#8377; {{o.o_total}}</h3>
           </div>
           <div class="line">
             <h3>{{o.items}} Items</h3>
