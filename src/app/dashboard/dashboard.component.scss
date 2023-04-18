@@ -28,12 +28,12 @@ ion-img{
     font-weight: bold;
 }
 .filter ion-button{
-    margin-right: 10px;
     display: block;
     width: 25%;
     --background: var(--primaryBgColor);
     height: 35px;
-    margin-left: auto;
+    margin: auto;
+    margin-bottom: 10px;
 }
 .filter1{
     display: flex;
