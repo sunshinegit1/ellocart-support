@@ -42,7 +42,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getData(){
-    this.api.postCall('get_today_stats.php',{uid:this.userData.uid}).subscribe((res:any)=>{
+    this.api.postCall('get_today_stats.php',{uid:this.userData.uid, selectedDate: localStorage.getItem("selectedDate")}).subscribe((res:any)=>{
       this.data = res.ResultSet;
     })
   }
@@ -55,6 +55,7 @@ export class DashboardComponent implements OnInit {
   this.selectedDate = formatDate(e.detail.value,'yyyy-MM-dd',"en-US");
   localStorage.setItem("selectedDate", this.selectedDate);
   this.modal.dismiss();
+  this.getData();
  }
  filter(){
   this.filterStatus = !this.filterStatus;
