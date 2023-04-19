@@ -35,7 +35,7 @@ export class CategoriesComponent implements OnInit {
     })
    }
    select(e:any,cid:any,rid:any){
-    this.api.postCall('aaa.php',{
+    this.api.postCall('update_rest_cat_status.php',{
       uid: this.userData.uid,
           rid: rid,
           cid:cid,
