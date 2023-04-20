@@ -105,7 +105,7 @@
   </ion-card>
   <h3 class="title">Products</h3>
   <ion-card>
-    <ion-button id="open-modal" (click)="editProducts(orderData.rest_id)" class="editbtn">Edit</ion-button>
+    <ion-button *ngIf="status==='pending'" id="open-modal" (click)="editProducts(orderData.rest_id)" class="editbtn">Edit</ion-button>
     <ion-modal trigger="open-modal">
       <ng-template>
         <ion-header>

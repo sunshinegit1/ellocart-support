@@ -14,6 +14,7 @@ const routes: Routes = [
   {path: 'categories', component:CategoriesComponent},
   {path: 'orders/:status', component:OrdersComponent},
   {path: 'order-details/:oid', component:OrderDetailsComponent},
+  {path: 'order-details/:status/:oid', component:OrderDetailsComponent},
   {
     path: '',
     redirectTo: 'login',

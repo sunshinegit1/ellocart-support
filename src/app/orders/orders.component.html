@@ -22,7 +22,7 @@
   </div>
   <div *ngFor="let o of searchResults">
     <ion-card>
-      <ion-list [routerLink]="['/order-details', o.id]" lines="none">
+      <ion-list [routerLink]="['/order-details/',status, o.id]" lines="none">
         <ion-item>
           <ion-icon name="restaurant-outline" slot="start"></ion-icon>
           <ion-label class="ion-text-wrap">
@@ -38,7 +38,7 @@
       <ion-card-content>
 
         <!-- Order Details -->
-        <div [routerLink]="['/order-details', o.id]">
+        <div [routerLink]="['/order-details',status, o.id]">
           <h3>{{o.user_name}}</h3>
           <div class="line">
             <h3>{{o.mobile}}</h3>

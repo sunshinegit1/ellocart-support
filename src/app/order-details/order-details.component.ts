@@ -16,6 +16,7 @@ export class OrderDetailsComponent implements OnInit {
   products: any = [];
   newProducts: any = [];
   differenceAmt: any;
+  status: string | null = '';
 
   constructor(
     private api: ApiService,
@@ -26,6 +27,7 @@ export class OrderDetailsComponent implements OnInit {
     this.userData = localStorage.getItem('user');
     this.userData = JSON.parse(this.userData);
     this.oid = this.route.snapshot.paramMap.get('oid');
+    this.status = this.route.snapshot.paramMap.get('status');
     this.getOrderDetails(this.oid);
   }
   getOrderDetails(id: any) {
