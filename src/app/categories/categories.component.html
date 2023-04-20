@@ -21,7 +21,7 @@
       All<ion-toggle slot="end" (click)="selectAll($event)" value="%" [checked]="checkAll"></ion-toggle>
     </ion-item> -->
     <ion-item *ngFor="let r of searchResults">
-      {{r.title}}<br>({{r.rest_name}})<ion-toggle slot="end" [value]="r.id" (ionChange)="select($event,r.id,r.rid)" [checked]="r.cstatus==='1'?true:false"></ion-toggle>
+      {{r.title}}<br>({{r.rest_name}})<ion-toggle slot="end" [value]="r.id" (ionChange)="select($event,r.id,r.rid)" [checked]="r.status==='1'?true:false"></ion-toggle>
     </ion-item>
   </ion-list>
 </ion-content>

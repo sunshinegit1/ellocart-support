@@ -27,6 +27,10 @@
           <ion-icon name="restaurant-outline" slot="start"></ion-icon>
           <ion-label class="ion-text-wrap">
             <h2>{{o.rest_name}}</h2>
+            <div class="line">
+              <h3>{{o.mobile}}</h3>
+              <ion-button class="ccall" (click)="call(o.mobile)">Call</ion-button>
+            </div>
             <p>{{o.address}}</p>
           </ion-label>
         </ion-item>
