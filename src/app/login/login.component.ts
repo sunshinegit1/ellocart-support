@@ -1,7 +1,9 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ApiService } from 'src/app/services/api.service';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -11,21 +13,33 @@ import { ApiService } from 'src/app/services/api.service';
 export class LoginComponent implements OnInit {
   loginForm!: UntypedFormGroup;
   userData: any;
+  loading:any;
 
   constructor(
     private fb: UntypedFormBuilder,
     private router: Router,
     private api: ApiService,
-  ) { }
+    private loadingCtrl: LoadingController
+  ) {}
 
   ngOnInit() {
     this.userData = localStorage.getItem('user');
     this.userData = JSON.parse(this.userData);
     if (this.userData) {
+      this.showLoading();
       this.router.navigateByUrl('/dashboard');
     }
     this.loginFormvalidators();
   }
+
+  async showLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Logging In...',
+      duration: 3000
+    });
+    this.loading.present();
+  }
+
   login() {
     if (this.loginForm.valid) {
       const obj = {

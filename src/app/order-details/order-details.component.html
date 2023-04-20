@@ -37,7 +37,7 @@
           </div>
           <div class="line">
             <h3>Item:{{orderData.items}}</h3>
-            <h3>Mode of Payment: {{orderData.trans_id?'Online':'COD'}}</h3>
+            <h3>Mode of Payment: {{orderData.trans_id!=0?'Online':'COD'}}</h3>
           </div>
           <h3>Delivery:{{orderData.deliverytime}}</h3>
         </ion-label>

@@ -5,6 +5,7 @@ import { IonModal, Platform } from '@ionic/angular';
 import { ApiService } from '../services/api.service';
 import * as mapboxgl from 'mapbox-gl';
 import { environment } from 'src/environments/environment';
+import { LoadingController } from '@ionic/angular';
 
 @Component({
   selector: 'app-orders',
@@ -31,13 +32,16 @@ export class OrdersComponent implements OnInit {
   mapPage=false;
   selectedDate: any;
   errorMessage: any;
+  loading:any;
+
   
   constructor(
     private api: ApiService,
     private router: Router,
     private route: ActivatedRoute,
     private callNumber: CallNumber,
-    private platform:Platform
+    private platform:Platform,
+    private loadingCtrl: LoadingController
   ) { 
     this.platform.backButton.subscribeWithPriority(10, () => {
       if(this.mapPage===true){
@@ -47,21 +51,32 @@ export class OrdersComponent implements OnInit {
     });
   }
 
+  async showLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Orders Loading...',
+    });
+    this.loading.present();
+  }
   ngOnInit() {
     this.status = this.route.snapshot.paramMap.get('status');
     this.userData = JSON.parse(localStorage.getItem('user') || '');
     this.selectedDate = localStorage.getItem("selectedDate");
+  }
+
+  ionViewWillEnter(){
     this.getData();
     this.getDelivertBoys();
   }
 
   getData() {
+    this.showLoading();
     this.errorMessage = "";
     this.api.postCall('get_'+this.status+'_orders.php',{uid:this.userData.uid, odate:this.selectedDate}).subscribe((res: any) => {
       this.orders = res.ResultSet;
       this.searchResults = [...res.ResultSet];
       if(this.searchResults.length === 0)
         this.errorMessage = "No Orders Found";
+      this.loading.dismiss();  
     })
   }
   getDelivertBoys(){

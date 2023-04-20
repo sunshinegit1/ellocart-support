@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../services/api.service';
+import { LoadingController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-categories',
@@ -13,9 +15,12 @@ export class CategoriesComponent implements OnInit {
   restaurants: any;
   search1: any;
   searchVal: string ='';
+  loading:any;
 
   constructor(
-    private api:ApiService
+    private api:ApiService,
+    private loadingCtrl: LoadingController,
+    private toastController: ToastController
   ) { }
 
   ngOnInit() {
@@ -23,9 +28,29 @@ export class CategoriesComponent implements OnInit {
     this.getRestaurants();
     this.getCategories();
   }
+
+  async showLoading() {
+    this.loading = await this.loadingCtrl.create({
+      message: 'Loading Categories',
+    });
+    this.loading.present();
+  }
+
+  async presentToast(position: 'top' | 'middle' | 'bottom',msg?:any) {
+    const toast = await this.toastController.create({
+      message: msg,
+      duration: 1000,
+      position: position
+    });
+
+    await toast.present();
+  }
+
   getCategories(){
+    this.showLoading();
     this.api.postCall('get_rest_cat.php',{uid:this.userData.uid}).subscribe((res:any)=>{
       this.categories = res.ResultSet;
+      this.loading.dismiss();
       this.searchResults = [...res.ResultSet];
     })
    }
@@ -41,16 +66,16 @@ export class CategoriesComponent implements OnInit {
           cid:cid,
           status:Number(e.detail.checked).toString()
     }).subscribe((res:any)=>{
-      console.log(res);
+      this.presentToast('bottom',res.ResponseMsg)
     })
    }
    search(e:any){
     if(this.search1){
       this.searchResults=this.search1.filter((ele:any)=>{
-      let title = ele.title.toLowerCase();
-      return title.match(e.detail.value.toLowerCase())
-    })}
-    else{
+        let title = ele.title.toLowerCase();
+        return title.match(e.detail.value.toLowerCase());
+      })
+    }else{
       this.searchResults=this.categories.filter((ele:any)=>{
         let title = ele.title.toLowerCase();
         return title.match(e.detail.value.toLowerCase())

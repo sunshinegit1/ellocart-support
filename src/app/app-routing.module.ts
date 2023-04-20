@@ -9,6 +9,16 @@ import { CategoriesComponent } from './categories/categories.component';
 
 const routes: Routes = [
   {path: 'login', component:LoginComponent},
+  {
+    matcher: url => {
+      const user_type = localStorage.getItem('user');
+      if (user_type) {
+        return url.length ? { consumed: [] } : { consumed: url };
+      }
+      return null;
+    },
+    component:DashboardComponent
+  },
   {path: 'dashboard', component:DashboardComponent},
   {path: 'restaurants', component:RestaurantsComponent},
   {path: 'categories', component:CategoriesComponent},

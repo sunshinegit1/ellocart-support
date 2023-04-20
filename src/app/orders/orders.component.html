@@ -54,7 +54,7 @@
           </div>
           <div class="line">
             <h3>Scheduled: {{o.odate | date:'dd-MM-yyyy'}}</h3>
-            <h3>Payment: {{o.trans_id?'Online':'COD'}}</h3>
+            <h3>Payment: {{o.trans_id!=0?'Online':'COD'}}</h3>
           </div>
           <h3>Delivery: {{o.delivertime}}</h3>
         </div>
