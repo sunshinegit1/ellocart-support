@@ -3,7 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Platform } from '@ionic/angular';
 import OneSignal from 'onesignal-cordova-plugin';
-import { App } from '@capacitor/app'
+import { App } from '@capacitor/app';
+import { StatusBar } from '@capacitor/status-bar';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html',
@@ -15,7 +17,9 @@ export class AppComponent{
     private router:Router,
     private _location:Location
     ) {
-        document.body.setAttribute('color-theme','light')
+        document.body.setAttribute('color-theme','light');
+        StatusBar.setOverlaysWebView({ overlay: false });
+        StatusBar.setBackgroundColor({color:'#752dac'});
         platform.ready().then(() => {      
           this.OneSignalInit();
         })
